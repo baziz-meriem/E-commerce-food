@@ -1,45 +1,67 @@
 /**
- * Curated food photography from Unsplash (https://unsplash.com/license — free use).
- * Demo only; use your own product photography in production.
+ * Curated food photography from Unsplash (https://unsplash.com/license).
+ * Every `photo-*` id below was verified with HTTP GET (200) against images.unsplash.com.
+ * Demo only — use your own assets in production.
  */
 const u = (id: string, w = 900) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=85`;
 
-/** Map seed keys → real food images */
+/** Verified working Unsplash photo ids (food-related) — safe to reuse across products */
+const V = {
+  milk: '1563636619-e9143da7973b',
+  yogurt: '1488477181946-6428a0291777',
+  bread: '1509440159596-0249088772ff',
+  baguette: '1549931319-a545dcf3bc73',
+  cucumber: '1449300079323-02e209d9d3a6',
+  juice: '1621506289937-a8e4df240d0b',
+  chicken: '1604503468506-a8da13d82791',
+  cheese: '1486297678162-eb2a19b0a32d',
+  croissant: '1555507036-ab1f4038808a',
+  banana: '1571771894821-ce9b6c11b08e',
+  beef: '1603048297172-c92544798d5a',
+  oil: '1474979266404-7eaacbcd87c5',
+  cake: '1578985545062-69928b1d9587',
+  iceCream: '1563805042-7684c019e1cb',
+  fruitVeg: '1610832958506-aa56368176cf',
+  mealSpread: '1511690743698-d9d85f2fbf38',
+  tableFood: '1504674900247-0877df9cc836',
+} as const;
+
+/** Map seed keys → verified image URLs */
 export const FOOD_IMAGES: Record<string, string> = {
-  'milk-n': u('1563636619-e9143da7973b'),
-  'yog-n': u('1488477181946-6428a0291777'),
-  'bread-n': u('1509440159596-0249088772ff'),
-  'vino-n': u('1549931319-a545dcf3bc73'),
-  'tom-n': u('1592841200221-a7acbddd307e'),
-  'cuc-n': u('1449300079323-02e209d9d3a6'),
-  'oj-n': u('1621506289937-a8e4df240d0b'),
-  'chkn-n': u('1604503468506-a8da13d82791'),
-  'fries-n': u('1573080496219-bb080dd4f6ce'),
-  'rice-n': u('1586201375741-838107cd7d13'),
-  'choc-n': u('1511381939415-e55615469570'),
-  'moz-s': u('1486297678162-eb2a19b0a32d'),
-  'cro-s': u('1555507036-ab1f4038808a'),
-  'pot-s': u('1518977822534-7047a1e0d8f8'),
-  'ban-s': u('1571771894821-ce9b6c11b08e'),
-  'water-s': u('1548839140-29a749fc1bf2'),
-  'beef-s': u('1603048297172-c92544798d5a'),
-  'sam-s': u('1562967914-608efa7367f6'),
-  'oil-s': u('1474979266404-7eaacbcd87c5'),
-  'bis-s': u('1499636136210-6f66c7855f39'),
-  'cream-e': u('1618164436260-33e22f9f0c76'),
-  'cake-e': u('1578985545062-69928b1d9587'),
-  'car-e': u('1598170845887-954453eac952'),
-  'tea-e': u('1564890368479-228004266bdd'),
-  'liv-e': u('1604503468506-a8da13d82791'),
-  'ice-e': u('1563805042-7684c019e1cb'),
-  'pas-e': u('1551462143-e7bbb964b967'),
-  'nuts-e': u('1599599810705-d4ee69daabb0'),
+  'milk-n': u(V.milk),
+  'yog-n': u(V.yogurt),
+  'bread-n': u(V.bread),
+  'vino-n': u(V.baguette),
+  'tom-n': u(V.fruitVeg),
+  'cuc-n': u(V.cucumber),
+  'oj-n': u(V.juice),
+  'chkn-n': u(V.chicken),
+  'fries-n': u(V.chicken),
+  'rice-n': u(V.tableFood),
+  'choc-n': u(V.cake),
+  'moz-s': u(V.cheese),
+  'cro-s': u(V.croissant),
+  'pot-s': u(V.fruitVeg),
+  'ban-s': u(V.banana),
+  'water-s': u(V.juice),
+  'beef-s': u(V.beef),
+  'sam-s': u(V.mealSpread),
+  'oil-s': u(V.oil),
+  'bis-s': u(V.bread),
+  'cream-e': u(V.yogurt),
+  'cake-e': u(V.cake),
+  'car-e': u(V.fruitVeg),
+  'tea-e': u(V.juice),
+  'liv-e': u(V.chicken),
+  'ice-e': u(V.iceCream),
+  'pas-e': u(V.mealSpread),
+  'nuts-e': u(V.fruitVeg),
 };
 
 export const AD_IMAGES = {
-  dairy: u('1550583724-b2692b95b096'),
-  fruit: u('1610832958506-aa56368176cf'),
-  delivery: u('1586526318130-38c4d4c7a6bc'),
-  bakery: u('1509440159596-0249088772ff'),
+  dairy: u(V.milk),
+  fruit: u(V.fruitVeg),
+  delivery: u(V.tableFood),
+  bakery: u(V.bread),
 } as const;
