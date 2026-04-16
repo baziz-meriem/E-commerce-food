@@ -1,5 +1,11 @@
-export const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000/api";
+/** Base URL for Nest `/api` routes. Set `NEXT_PUBLIC_API_URL` in `.env.production` (e.g. `https://your-api.onrender.com/api`) so production builds call Render, not localhost. */
+function apiBase(): string {
+  const raw =
+    process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000/api";
+  return raw.replace(/\/$/, "");
+}
+
+export const API_BASE = apiBase();
 
 export function getStoredToken(): string | null {
   if (typeof window === "undefined") return null;
