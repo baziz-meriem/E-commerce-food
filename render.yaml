@@ -1,0 +1,9 @@
+# Backend API — set Root Directory to repo root when using this Blueprint, or create the service
+# with Root Directory = backend and paste the same build/start commands in the dashboard.
+services:
+  - type: web
+    name: ecommerce-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci && npx prisma generate && npx prisma migrate deploy && npm run build
+    startCommand: npm run start:prod
