@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+html {
+  color-scheme: light;
+}
+
+:root {
+  --background: #f1f5f9;
+  --foreground: #0f172a;
+  --brand: #059669;
+  --brand-soft: #ecfdf5;
+  --surface: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-mono: ui-monospace, monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Soft grid texture (very light) */
+.bg-app-pattern {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      rgb(209 250 229 / 0.45),
+      transparent
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      rgb(204 251 241 / 0.35),
+      transparent 45%
+    );
+}
