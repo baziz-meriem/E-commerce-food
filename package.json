@@ -1,0 +1,10 @@
+{
+  "name": "e-commerce",
+  "private": true,
+  "scripts": {
+    "prisma:seed": "npm run prisma:seed --prefix backend",
+    "prisma:deploy": "npm run prisma:deploy --prefix backend",
+    "prisma:generate": "npm run prisma:generate --prefix backend",
+    "prisma:migrate": "npm run prisma:migrate --prefix backend"
+  }
+}
