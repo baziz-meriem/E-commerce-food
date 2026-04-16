@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Backend
+backend/dist/
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/.env
+backend/coverage/
+
+# Frontend
+frontend/.next/
+frontend/out/
+frontend/.env.local
+
+# OS / IDE
+.DS_Store
+*.log
+.idea/
+.vscode/
