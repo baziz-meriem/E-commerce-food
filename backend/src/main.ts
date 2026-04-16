@@ -28,7 +28,34 @@ async function bootstrap() {
     .map((s) => s.trim())
     .filter(Boolean);
   app.enableCors({
-    origin: corsOrigins.length === 1 ? corsOrigins[0] : corsOrigins,
+    origin: (
+      origin: string | undefined,
+      cb: (err: Error | null, allow?: boolean | string) => void,
+    ) => {
+      if (!origin) {
+        cb(null, true);
+        return;
+      }
+      if (corsOrigins.includes(origin)) {
+        cb(null, origin);
+        return;
+      }
+      try {
+        const host = new URL(origin).hostname;
+        if (
+          host.endsWith('.vercel.app') ||
+          host.endsWith('.onrender.com') ||
+          host === 'localhost'
+        ) {
+          cb(null, origin);
+          return;
+        }
+      } catch {
+        cb(new Error('CORS'), false);
+        return;
+      }
+      cb(new Error('CORS'), false);
+    },
     credentials: true,
   });
   const port = Number(process.env.PORT) || 4000;

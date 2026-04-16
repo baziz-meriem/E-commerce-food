@@ -1,11 +1,11 @@
 import { HomeClient } from "@/components/home-client";
-import { API_BASE } from "@/lib/api";
+import { getApiBase } from "@/lib/api";
 
 export default async function HomePage() {
   let ads: { id: string; titleAr: string; linkUrl: string; imageUrl?: string }[] =
     [];
   try {
-    const res = await fetch(`${API_BASE}/ads`, { next: { revalidate: 30 } });
+    const res = await fetch(`${getApiBase()}/ads`, { next: { revalidate: 30 } });
     if (res.ok) ads = await res.json();
   } catch {
     ads = [];

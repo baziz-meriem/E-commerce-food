@@ -1,11 +1,34 @@
-/** Base URL for Nest `/api` routes. Set `NEXT_PUBLIC_API_URL` in `.env.production` (e.g. `https://your-api.onrender.com/api`) so production builds call Render, not localhost. */
-function apiBase(): string {
+/**
+ * Public Render API (Nest `/api`). Used for SSR and as fallback when env is unset.
+ * Override with `NEXT_PUBLIC_API_URL` in `.env.production` if the backend URL changes.
+ */
+const DEFAULT_PROD_API = "https://e-commerce-food-u44s.onrender.com/api";
+
+function resolveServerApiUrl(): string {
   const raw =
-    process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000/api";
+    process.env.NEXT_PUBLIC_API_URL?.trim() || DEFAULT_PROD_API;
   return raw.replace(/\/$/, "");
 }
 
-export const API_BASE = apiBase();
+/**
+ * Browser production: same-origin `/api-backend/*` → rewritten to Render (see `next.config.ts`).
+ * Avoids relying on `NEXT_PUBLIC_*` at build time and avoids CORS for `fetch`.
+ * Local dev: direct `http://localhost:4000/api` unless overridden.
+ */
+export function getApiBase(): string {
+  if (typeof window === "undefined") {
+    return resolveServerApiUrl();
+  }
+  const host = window.location.hostname;
+  const isLocal = host === "localhost" || host === "127.0.0.1";
+  if (isLocal) {
+    const local =
+      process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ??
+      "http://localhost:4000/api";
+    return local;
+  }
+  return "/api-backend";
+}
 
 export function getStoredToken(): string | null {
   if (typeof window === "undefined") return null;
@@ -22,7 +45,7 @@ export async function apiFetch<T = unknown>(
   if (init?.json !== undefined) {
     headers.set("Content-Type", "application/json");
   }
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(`${getApiBase()}${path}`, {
     ...init,
     headers,
     body:
